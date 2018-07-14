@@ -8,7 +8,7 @@ public class Brush {
     private int size;
     volatile private boolean held;
     private Color curColor;
-    private Color[] colors;
+    private Color[] colors = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.PINK, Color.YELLOW, Color.CYAN, Color.DARK_GRAY, Color.LIGHT_GRAY};
 
     public Brush(){
         this.x = 0;
@@ -16,6 +16,17 @@ public class Brush {
         this.size = 5;
         this.held = false;
         this.curColor = Color.BLACK;
+    }
+
+    public void changeColor(int i){
+        if(i < 0 || i >= colors.length){
+            // creating an error message box
+            MessageWindow mw = new MessageWindow("Error", "Error: out of color range");
+            mw.setUp();
+            mw.display();
+        }else{
+            curColor = colors[i];
+        }
     }
 
     public void update(){

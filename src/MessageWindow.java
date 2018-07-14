@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MessageWindow {
+public class MessageWindow{
     private JFrame window;
     private JPanel container;
     private JLabel message;
@@ -62,4 +62,8 @@ public class MessageWindow {
     public JLabel getMessage(){return this.message;}
     public int getwWidth(){return this.wWidth;}
     public int getwHeight(){return this.wHeight;}
+
+    public void setText(String s){
+        this.message.setText(s);
+    }
 }

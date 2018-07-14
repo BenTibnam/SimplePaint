@@ -12,11 +12,30 @@ public class Canvas extends JPanel implements ActionListener, KeyListener, Mouse
         this.setFocusTraversalKeysEnabled(false);
         this.addKeyListener(this);
         this.addMouseListener(this);
+        this.help();
+    }
+
+    public void help(){
+        MessageWindow mw = new MessageWindow("Help", "<html><body>Click to paint. Press 1-9 to change colors.<br/>" +
+                "1: Black<br/>2: Red<br/>3: Green<br/>4: Blue<br/>5: Pink<br/>6: Yellow<br/>7: Cyan<br/>8: Dark Gray<br/>9: Light Gray <br/> Press 'h' to display this message.</html>", 300, 250);
+        mw.setUp();
+        mw.display();
+
+        mw.getWindow().setLocationRelativeTo(null);
+
     }
 
     public void paint(Graphics g){
+        this.brush.update();
+        int baseX = this.brush.getX();
+        int baseY = this.brush.getY() - 65;
+        int size = this.brush.getSize();
         g.setColor(this.brush.getCurColor());
-        g.fillOval(this.brush.getX(), this.brush.getY()-65, this.brush.getSize(), this.brush.getSize());
+        g.fillOval(baseX, baseY, size, size);
+        g.fillOval(baseX+1, baseY, size, size);
+        g.fillOval(baseX-1, baseY, size, size);
+        g.fillOval(baseX, baseY + 1, size, size);
+        g.fillOval(baseX, baseY-1, size, size);
         g.dispose();
     }
 
@@ -75,6 +94,12 @@ public class Canvas extends JPanel implements ActionListener, KeyListener, Mouse
         else if(keyEvent.getKeyCode() == KeyEvent.VK_0) this.brush.changeColor(9);  // this should cause an error and make the window pop up
 
         if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
+
+        // real secrete color
+        if(keyEvent.getKeyCode() == KeyEvent.VK_C) this.brush.setCurColor(Color.WHITE);
+
+        // display the help menu
+        if(keyEvent.getKeyCode() == KeyEvent.VK_H) this.help();
     }
 
     @Override
